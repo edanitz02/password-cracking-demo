@@ -2,9 +2,9 @@ VENV_DIR := venv
 PYTHON := $(VENV_DIR)/bin/python
 PIP := $(VENV_DIR)/bin/pip
 
-.PHONY: all install plainText setHashed setSaltedHashed run clean
+.PHONY: all install plainText setHashed setSaltedHashed dictionary clean
 
-all: install setPlainText run
+all: install setPlainText dictionary
 
 install:
 	test -d $(VENV_DIR) || python3 -m venv $(VENV_DIR)
@@ -21,8 +21,8 @@ setHashed:
 setSaltedHashed:
 	$(PYTHON) databaseSetup/saltHash.py databaseSetup/accounts.sql
 
-run:
-	$(PYTHON) bruteForce.py
+dictionary:
+	$(PYTHON) attacks/dictionary.py attacks/passwords.txt
 
 clean:
 	rm -rf $(VENV_DIR)

@@ -1,6 +1,7 @@
 import psycopg2
 from psycopg2 import sql
 import os
+import sys
 from dotenv import load_dotenv # installed in a virtual environment
 
 load_dotenv()  # Loads from .env file in the same directory
@@ -35,8 +36,8 @@ def create_database():
         cursor.close()
         conn.close()
 
-def create_accounts_table():
-    # Connect to the new database
+def load_accounts_from_sql(accounts):
+    # Connect to the database
     conn = psycopg2.connect(
         dbname=DB_NAME,
         user=DB_USER,
@@ -45,26 +46,25 @@ def create_accounts_table():
         port=DB_PORT
     )
     cursor = conn.cursor()
-    
+
     try:
-        cursor.execute("""
-            CREATE TABLE IF NOT EXISTS accounts (
-                username VARCHAR(100) UNIQUE NOT NULL,
-                password VARCHAR(255) NOT NULL,
-                PRIMARY KEY(username)
-            );
-        """)
-        print("Table 'accounts' created successfully!")
+        with open(accounts, 'r') as sql_file:
+            sql_script = sql_file.read()
+            cursor.execute(sql_script)
+            print(f"Executed SQL from '{accounts}' successfully!")
     except Exception as e:
-        print(f"Error creating table: {e}")
+        print(f"Error executing SQL file: {e}")
     finally:
         conn.commit()
         cursor.close()
         conn.close()
 
-def main():
+def main(accounts):
     create_database()
-    create_accounts_table()
+    load_accounts_from_sql(accounts)
 
 if __name__ == "__main__":
-    main()
+    if len(sys.argv) < 2:
+        print("Usage: python plainText.py <accounts.sql>")
+    else:
+        main(sys.argv[1])

@@ -2,7 +2,7 @@ DROP TABLE IF EXISTS accounts;
 
 CREATE TABLE accounts(
     username VARCHAR NOT NULL,
-    pass VARCHAR NOT NULL,
+    password VARCHAR NOT NULL,
     PRIMARY KEY(username)
 );
 

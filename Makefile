@@ -10,7 +10,8 @@ install:
 	test -d $(VENV_DIR) || python3 -m venv $(VENV_DIR)
 	$(PIP) install --upgrade pip
 	$(PIP) install psycopg2-binary
-	$(PIP) install python-dotenv
+	$(PIP) install python-dotenv 
+	$(PYTHON) attacks/generateRainbow.py attacks/passwords.txt attacks/rainbow.csv
 
 setPlainText: 
 	$(PYTHON) databaseSetup/plainText.py databaseSetup/accounts.sql
@@ -26,6 +27,9 @@ dictionary:
 
 brute:
 	$(PYTHON) attacks/bruteForce.py 4
+
+rainbow:
+	$(PYTHON) attacks/rainbow.py attacks/rainbow.csv
 
 clean:
 	rm -rf $(VENV_DIR)

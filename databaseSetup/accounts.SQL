@@ -9,10 +9,10 @@ CREATE TABLE accounts(
 INSERT INTO accounts VALUES 
     ('alex99', 'stormChaser!42'),
     ('maya_23', 'sunnySkies#77'),
-    ('bill', 'apple123'),
+    ('bill', 'are1'),
     ('bill3', 'password'),
     ('charlieX', 'Moonlight*88'),
-    ('luna_love', 'St@rryNight'),
+    ('luna_love', 'apple123'),
     ('max_the_cat', 'Whiskers123'),
     ('dani_dev', 'C0d3Master!'),
     ('jenny.lee', 'PurpleHaze#9'),

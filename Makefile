@@ -24,5 +24,8 @@ setSaltedHashed:
 dictionary:
 	$(PYTHON) attacks/dictionary.py attacks/passwords.txt
 
+brute:
+	$(PYTHON) attacks/bruteForce.py 4
+
 clean:
 	rm -rf $(VENV_DIR)

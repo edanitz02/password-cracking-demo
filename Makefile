@@ -26,10 +26,13 @@ dictionary:
 	$(PYTHON) attacks/dictionary.py attacks/passwords.txt
 
 brute:
-	$(PYTHON) attacks/bruteForce.py 4
+	$(PYTHON) attacks/bruteForce.py 3
 
 rainbow:
 	$(PYTHON) attacks/rainbow.py attacks/rainbow.csv
+
+johnTest:
+	$(PYTHON) johnTest/john.py johnTest/john.txt
 
 clean:
 	rm -rf $(VENV_DIR)

@@ -1,3 +1,8 @@
 postgresSetup
 /venv
 .env
+
+attacks/*.csv
+john
+
+.DS_STORE

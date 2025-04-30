@@ -36,6 +36,8 @@ def rainbow_attack(rainbow_table):
     conn = connect()
     cursor = conn.cursor()
 
+    cracked_accounts = []
+
     try:
         cursor.execute("SELECT username, password FROM accounts;")
         users = cursor.fetchall()
@@ -46,6 +48,7 @@ def rainbow_attack(rainbow_table):
             cracked_password = rainbow_table.get(stored_hash)
             if cracked_password:
                 print(f"CRACKED {username}: {cracked_password}")
+                cracked_accounts.append((username, cracked_password))
             else:
                 print(f"Failed to crack {username}")
 
@@ -54,10 +57,14 @@ def rainbow_attack(rainbow_table):
     finally:
         cursor.close()
         conn.close()
+    return cracked_accounts
 
 if __name__ == "__main__":
     if len(sys.argv) < 2:
         print("Usage: python rainbow.py <file>")
         sys.exit(1)
     table = load_rainbow_table(sys.argv[1])
-    rainbow_attack(table)
+    cracked = rainbow_attack(table)
+    print("\nResults")
+    for username, password in cracked:
+        print(f"{username}: {password}")

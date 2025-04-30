@@ -33,6 +33,8 @@ def dictionary_attack(dictionary_file):
     )
     cursor = conn.cursor()
 
+    cracked_accounts = []
+
     try:
         # Load candidate passwords
         candidates = load_dictionary(dictionary_file)
@@ -66,6 +68,7 @@ def dictionary_attack(dictionary_file):
 
                 if guess_hash == stored_password or guess == stored_password:
                     print(f"..!....!....!..Cracked {username}: {guess}")
+                    cracked_accounts.append((username, guess))
                     break
             else:
                 print(f"Failed to crack {username}")
@@ -75,9 +78,14 @@ def dictionary_attack(dictionary_file):
     finally:
         cursor.close()
         conn.close()
+    return cracked_accounts
 
 if __name__ == '__main__':
     if len(sys.argv) < 2:
         print("Usage: python dictionary_attack.py passwords.txt")
     else:
-        dictionary_attack(sys.argv[1])
+        cracked = dictionary_attack(sys.argv[1])
+        print("\nResults:")
+        for username, password in cracked:
+            print(f"{username}: {password}")
+

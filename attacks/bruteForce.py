@@ -53,9 +53,10 @@ def get_accounts(conn):
 
 def brute_force_crack(accounts, salted, max_length):
     print(f"Starting real brute-force attack (max length: {max_length})...\n")
+    cracked_accounts = []
 
     for username, (stored_pw, salt) in accounts.items():
-        print(f"\nCracking password for: {username}")
+        print(f"Cracking: {username}")
         cracked = False
 
         for length in range(1, max_length + 1):
@@ -69,15 +70,15 @@ def brute_force_crack(accounts, salted, max_length):
                     guess_hash = hash_password(guess)
 
                 if guess == stored_pw or guess_hash == stored_pw:
-                    print(f"CRACKED {username}: {guess}")
+                    print(f"\nCRACKED {username}: {guess}")
+                    cracked_accounts.append((username, guess))
                     cracked = True
                     break
-
             if cracked:
                 break
-
-        if not cracked:
-            print(f"Failed to crack {username}")
+        # if not cracked:
+        #     print(f"Failed to crack {username}")
+    return cracked_accounts
 
 def main():
     if len(sys.argv) != 2:
@@ -92,8 +93,12 @@ def main():
     
     conn = connect()
     accounts, salted = get_accounts(conn)
-    brute_force_crack(accounts, salted, max_length)
+    cracked = brute_force_crack(accounts, salted, max_length)
     conn.close()
+
+    print("\nResults:")
+    for username, password in cracked:
+        print(f"{username}: {password}")
 
 if __name__ == "__main__":
     main()

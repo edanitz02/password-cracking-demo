@@ -26,7 +26,7 @@ dictionary:
 	$(PYTHON) attacks/dictionary.py attacks/passwords.txt
 
 brute:
-	$(PYTHON) attacks/bruteForce.py 3
+	$(PYTHON) attacks/bruteForce.py 4
 
 rainbow:
 	$(PYTHON) attacks/rainbow.py attacks/rainbow.csv

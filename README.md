@@ -5,4 +5,4 @@
 -postgresql
 
 # John the Ripper Password Tester
-Do 'make install' + 'make johnTest'
+Do 'make image' + 'make dockerrun'

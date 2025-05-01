@@ -11,6 +11,7 @@ install:
 	$(PIP) install --upgrade pip
 	$(PIP) install psycopg2-binary
 	$(PIP) install python-dotenv 
+	$(PIP) install bcrypt
 	$(PYTHON) attacks/generateRainbow.py attacks/passwords.txt attacks/rainbow.csv
 
 setPlainText: 
@@ -32,7 +33,13 @@ rainbow:
 	$(PYTHON) attacks/rainbow.py attacks/rainbow.csv
 
 johnTest:
-	$(PYTHON) johnTest/john.py johnTest/john.txt
+	$(PYTHON) johnTest/emulatedJohn.py johnTest/john.txt
 
 clean:
 	rm -rf $(VENV_DIR)
+
+image:
+	docker build -t john-demo .
+
+dockerrun:
+	docker run -it --rm john-demo

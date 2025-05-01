@@ -2,8 +2,7 @@
 
 # dependencies
 -python3
--psycopg2
-    pip install psycopg2-binary
 -postgresql
--bcrypt
-    pip install bcrypt
+
+# John the Ripper Password Tester
+Do 'make install' + 'make johnTest'
